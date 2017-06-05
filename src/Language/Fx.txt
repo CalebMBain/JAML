@@ -1,0 +1,193 @@
+beginning:string{
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class Fx extends Application o=>
+    public static void main(String[] args)o=>
+            launch(Fx.class, args);
+    <=o
+
+	public void start(Stage window) throws Exception o=>}
+
+ending:string{
+	window.setScene(centerWidget);
+		window.show();
+	<=o
+<=o
+}
+
+Components:map{
+	window:Stage
+	menubar:MenuBar
+	menu:Menu
+	item:MenuItem
+	grid:GridPane
+	label:Label
+	group:TitledPane
+	splitter:SplitPane
+	list:ListView
+	button:Button
+	text_area:TextArea
+}
+
+Stage:component{
+	~trySetName:noName::""
+	~write::final GridPane centerGrid = new GridPane();
+	~write::final Scene centerWidget = new Scene(centerGrid);
+	~tryCheck:NoName::title:window.setTitle("%s");
+	~tryValue:NoName::max-height:window.setMaxHeight(%s);
+	~tryValue:NoName::min-height:window.setMinHeight(%s);
+	~tryValue:NoName::max-width:window.setMaxWidth(%s);
+	~tryValue:NoName::min-width:window.setMinWidth(%s);
+	~addChildLayout::component
+}
+
+Stage:child{
+	~tryChild::menubar:centerGrid.add(%s, 1, 1);
+	~tryChild::menubar:GridPane.setColumnSpan(%s, 3);
+	~tryChild::layout:centerGrid.add(%s, 2, 2);
+	~tryChild::component:centerGrid.add(%s, 2, 2);
+}
+
+MenuBar:component{
+	~trySetName::final MenuBar %s = new MenuBar();
+	~addChildLayout::menubar
+}
+
+MenuBar:child{
+	~tryChildParent::menu:%s.getMenus().add(%s);
+}
+
+Menu:component{
+	~trySetNameValue::name:final Menu %s = new Menu("%s");
+	~addChildLayout::menu
+}
+
+Menu:child{
+	~tryChildParent::item:%s.getItems().add(%s);
+}
+
+MenuItem:component{
+	~trySetNameText::final MenuItem %s = new MenuItem("%s");
+	~functions
+	~addChild::item
+}
+
+MenuItem:function{
+	~func:ref::method:%s.setOnAction(new EventHandler<ActionEvent>() o=>
+		public void handle(ActionEvent event) o=>
+			%s;
+		<=o
+	<=o);
+}
+
+GridPane:component{
+	~trySetName::final GridPane %s = new GridPane();
+	~addChildLayout::layout
+}
+
+GridPane:child{
+	~tryFindAppend:component::%s.add(%s, %s, %s);:column/int/1:row/int/1
+	~tryFindAppend:component:noName::GridPane.setColumnSpan(%s, %s);:column-span/int/1
+	~tryFindAppend:component:noName::GridPane.setRowSpan(%s, %s);:row-span/int/1
+	~tryFindAppend:layout::%s.add(%s, %s, %s);:column/int/1:row/int/1
+	~tryFindAppend:layout:noName::GridPane.setColumnSpan(%s, %s);:column-span/int/1
+	~tryFindAppend:layout:noName::GridPane.setRowSpan(%s, %s);:row-span/int/1
+}
+
+Label:component{
+	~trySetNameText::final Label %s = new Label("%s");
+	~tryMap:Positions::align:%s.setAlignment(%s);
+	~addChild::component
+}
+
+SplitPane:component{
+	~trySetName::final SplitPane %s = new SplitPane();
+	~tryMap:Orientation::orientation:%s.setOrientation(%s);
+	~addChildLayout::component
+}
+
+SplitPane:child{
+	~tryChildParent::component:%s.getItems().add(%s);
+	~tryChildParent::layout:%s.getItems().add(%s);
+}
+
+TitledPane:component{
+	~trySetName::final TitledPane %s = new TitledPane();
+	~tryCheck::title:%s.setText("%s");
+	~addChildLayout::component
+}
+
+TitledPane:child{
+	~tryChildParent::component:%s.setContent(%s);
+	~tryChildParent::layout:%s.setContent(%s);
+}
+
+ListView:component{
+	~trySetName::final ListView %s = new ListView();
+	~functions
+	~addChild::component
+}
+
+ListView:function{
+	~func:ref::on-item-double-click:%s.setOnMouseClicked(new EventHandler<MouseEvent>() o=>
+		public void handle(MouseEvent event) o=>
+			if(mouseEvent.getClickCount() == 2) %s;
+		<=o
+	<=o);
+	~func:ref::on-item-click:%s.setOnMouseClicked(new EventHandler<MouseEvent>() o=>
+		public void handle(MouseEvent event) o=>
+			%s;
+		<=o
+	<=o);
+}
+
+Button:component{
+	~trySetNameText::final Button %s = new Button("%s");
+	~functions
+	~addChild::component
+}
+
+Button:function{
+	~func:ref::on-click:%s.setOnMouseClicked(new EventHandler<MouseEvent>() o=>
+		public void handle(MouseEvent event) o=>
+			%s;
+		<=o
+	<=o);
+}
+
+TextArea:component{
+	~trySetName::final TextArea %s = new TextArea();
+	~tryValue::width:%s.setPrefWidth(%s);
+	~tryValue::height:%s.setPrefHeight(%s);
+	~addChild::component
+}
+
+Orientation:map{
+	horizontal:Orientation.HORIZONTAL
+	vertical:Orientation.VERTICAL
+}
+
+Positions:map{
+	top-left:Pos.TOP_LEFT
+	top-center:Pos.TOP_CENTER
+	top-right:Pos.TOP_RIGHT
+	left:Pos.CENTER_LEFT
+	center:Pos.CENTER
+	right:Pos.CENTER_RIGHT
+	bottom-left:Pos.BOTTOM_LEFT
+	bottom-center:Pos.BOTTOM_CENTER
+	bottom-right:Pos.BOTTOM_RIGHT
+	baseline-left:Pos.BASELINE_LEFT
+	baseline-center:Pos.BASELINE_CENTER
+	baseline-right:Pos.BASELINE_RIGHT
+}
