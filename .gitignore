@@ -1,0 +1,12 @@
+*.iml
+
+out/*
+
+.idea/*
+/*class
+
+jaml/*
+src/main/java/GeneratedCode/*
+pom.xml
+target/*
+src/Language/*
